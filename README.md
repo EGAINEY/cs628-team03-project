@@ -1,10 +1,12 @@
 # RecipeEx - A dynamic recipe sharing web application built using the MERN stack architecture.
 
+
 **Architecture**
 
 - **Web Application:**
-- 
+  
 - **Database:**
+
 
 **Features**
 
