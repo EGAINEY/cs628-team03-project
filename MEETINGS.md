@@ -1,7 +1,39 @@
-#TP01
+# TP01
 
-#TP02
+ - Eric:
+   
+ - Varun:
+   
+ - Shivi:
+   
+ - Kritthika:
 
-#TP03
+# TP02
 
-#TP04
+ - Eric:
+   
+ - Varun:
+   
+ - Shivi:
+   
+ - Kritthika
+
+# TP03
+
+ - Eric:
+   
+ - Varun:
+   
+ - Shivi:
+   
+ - Kritthika:
+
+# TP04
+
+ - Eric:
+   
+ - Varun:
+   
+ - Shivi:
+   
+ - Kritthika:
