@@ -1,7 +1,7 @@
 # TP01
 Meetings: All communication was facilitated through our Microsoft Teams chat.
 
- - Eric: Abstract, References, created GitHub repo, drafted team charter.
+ - **Eric**: Abstract, References, created GitHub repo, drafted team charter.
    
  - Varun:
    
