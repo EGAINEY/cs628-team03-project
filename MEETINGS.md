@@ -5,7 +5,7 @@
    
  - **Varun:** Result, Conclusion
    
- - **Shivi:** Introduction, Wireframe introduction
+ - **Shivi:** Introduction, Wireframe 
    
  - **Kritthika:** Project methodology, Drafted TP01 final document
 
