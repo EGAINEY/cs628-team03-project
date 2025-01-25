@@ -3,7 +3,7 @@
 
  - **Eric:** Abstract, References, created GitHub repo, drafted team charter.
    
- - **Varun:** Usefulness, Tools
+ - **Varun:** Result, Conclusion
    
  - **Shivi:** 
    
