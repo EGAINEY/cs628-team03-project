@@ -7,7 +7,7 @@
    
  - **Shivi:** 
    
- - **Kritthika:** Project sumamry, Drafted TP01 final document
+ - **Kritthika:** Project methodology, Drafted TP01 final document
 
 # TP02
 **Meetings:** 
