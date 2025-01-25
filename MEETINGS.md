@@ -1,6 +1,7 @@
 # TP01
+Meetings: All communication was facilitated through our Microsoft Teams chat.
 
- - Eric:
+ - Eric: Abstract, References, created GitHub repo, drafted team charter.
    
  - Varun:
    
@@ -9,6 +10,7 @@
  - Kritthika:
 
 # TP02
+Meetings: 
 
  - Eric:
    
@@ -18,17 +20,8 @@
    
  - Kritthika
 
-# TP03
-
- - Eric:
-   
- - Varun:
-   
- - Shivi:
-   
- - Kritthika:
-
-# TP04
+# TP03 & TP04
+Meetings: 
 
  - Eric:
    
