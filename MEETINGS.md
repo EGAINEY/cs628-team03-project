@@ -1,32 +1,32 @@
 # TP01
-Meetings: All communication was facilitated through our Microsoft Teams chat.
+**Meetings:** All communication was facilitated through our Microsoft Teams chat.
 
- - **Eric**: Abstract, References, created GitHub repo, drafted team charter.
+ - **Eric:** Abstract, References, created GitHub repo, drafted team charter.
    
- - Varun:
+ - **Varun:** 
    
- - Shivi:
+ - **Shivi:** 
    
- - Kritthika:
+ - **Kritthika:** 
 
 # TP02
-Meetings: 
+**Meetings:** 
 
- - Eric:
+ - **Eric:** 
    
- - Varun:
+ - **Varun:** 
    
- - Shivi:
+ - **Shivi:** 
    
- - Kritthika
+ - **Kritthika** 
 
 # TP03 & TP04
-Meetings: 
+**Meetings:** 
 
- - Eric:
+ - **Eric:** 
    
- - Varun:
+ - **Varun:** 
    
- - Shivi:
+ - **Shivi:** 
    
- - Kritthika:
+ - **Kritthika:** 
