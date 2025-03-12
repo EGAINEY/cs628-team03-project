@@ -1,100 +1,144 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 function RecipeDetails() {
   const { id } = useParams();
   const [recipe, setRecipe] = useState(null);
-  const [isEditing, setIsEditing] = useState(false);
-  const [title, setTitle] = useState("");
-  const [ingredients, setIngredients] = useState("");
-  const [instructions, setInstructions] = useState("");
-  const [image, setImage] = useState("");
-  const [error, setError] = useState(null);
-  const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
     fetch(`/recipes/${id}`)
       .then((res) => res.json())
-      .then((data) => {
-        setRecipe(data);
-        setTitle(data.title);
-        setIngredients(data.ingredients.join(", "));
-        setInstructions(data.instructions);
-        setImage(data.image || "");
-      })
+      .then((data) => setRecipe(data))
       .catch((err) => console.error("Error fetching recipe:", err));
   }, [id]);
 
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onloadend = () => {
-        setImage(reader.result);
-      };
-    }
+  // Function to transform text: Capitalize the first letter of each word and lowercase the rest
+  const formatText = (text) => {
+    return text
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(" ");
   };
 
-  const handleEdit = async (e) => {
-    e.preventDefault();
-    setError(null);
-
-    const updatedRecipe = {
-      title,
-      ingredients: ingredients.split(",").map((item) => item.trim()),
-      instructions,
-      image,
-    };
-
-    try {
-      const response = await fetch(`/recipes/${id}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(updatedRecipe),
-      });
-
-      if (!response.ok) {
-        const data = await response.json();
-        setError(data.error);
-      } else {
-        setRecipe({ ...recipe, ...updatedRecipe });
-        setIsEditing(false);
-      }
-    } catch (error) {
-      setError("Error updating recipe.");
-    }
-  };
-
-  if (!recipe) return <h1>Loading...</h1>;
+  if (!recipe) return <p style={{ color: "white", textAlign: "center", fontSize: "20px" }}>Loading...</p>;
 
   return (
-    <div>
-      {isEditing ? (
-        <form onSubmit={handleEdit}>
-          <h1>Edit Recipe</h1>
-          {error && <p style={{ color: "red" }}>{error}</p>}
-          <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} required />
-          <textarea value={ingredients} onChange={(e) => setIngredients(e.target.value)} required />
-          <textarea value={instructions} onChange={(e) => setInstructions(e.target.value)} required />
-          <input type="file" accept="image/*" onChange={handleImageUpload} />
-          {image && <img src={image} alt="Recipe Preview" style={{ maxWidth: "200px", marginTop: "10px" }} />}
-          <button type="submit">Save Changes</button>
-          <button type="button" onClick={() => setIsEditing(false)}>Cancel</button>
-        </form>
-      ) : (
-        <>
-          <h1>{recipe.title}</h1>
-          {recipe.image && <img src={recipe.image} alt={recipe.title} style={{ maxWidth: "300px" }} />}
-          <p><strong>Ingredients:</strong> {recipe.ingredients.join(", ")}</p>
-          <p><strong>Instructions:</strong> {recipe.instructions}</p>
-          {user && user._id === recipe.createdBy && (
-            <button type="button" onClick={() => setIsEditing(true)}>Edit</button>
-          )}
-          <button type="button" onClick={() => navigate(-1)}>Back</button>
-        </>
-      )}
+    <div 
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        minHeight: "100vh",
+        background: "linear-gradient(135deg, #1e1e2e, #3a3a5a)",
+        color: "#ffffff",
+        textAlign: "center",
+        padding: "40px"
+      }}
+    >
+      <h1 
+        style={{ 
+          fontSize: "42px", 
+          fontWeight: "bold", 
+          textTransform: "uppercase",
+          letterSpacing: "2px",
+          color: "#ff9800",
+          marginBottom: "20px",
+          animation: "fadeIn 1.5s ease-in-out"
+        }}
+      >
+        {formatText(recipe.title)}
+      </h1>
+
+      <div 
+        style={{
+          background: "rgba(255, 255, 255, 0.1)",
+          backdropFilter: "blur(10px)",
+          borderRadius: "15px",
+          boxShadow: "0 4px 15px rgba(255, 152, 0, 0.3)",
+          overflow: "hidden",
+          width: "80%",
+          maxWidth: "700px",
+          padding: "20px",
+          animation: "fadeIn 2s ease-in-out"
+        }}
+      >
+        <img
+          src={recipe.image}
+          alt={recipe.title}
+          style={{
+            width: "100%",
+            maxWidth: "400px",
+            borderRadius: "12px",
+            boxShadow: "0 2px 8px rgba(255, 152, 0, 0.2)",
+            transition: "transform 0.3s ease",
+            cursor: "pointer"
+          }}
+          onMouseOver={(e) => e.target.style.transform = "scale(1.05)"}
+          onMouseOut={(e) => e.target.style.transform = "scale(1)"}
+        />
+
+        <table 
+          style={{ 
+            width: "100%", 
+            borderCollapse: "collapse", 
+            marginTop: "20px",
+            fontSize: "18px",
+            color: "#ffffff",
+            textAlign: "left",
+          }}
+        >
+          <tbody>
+            <tr style={{ backgroundColor: "rgba(255, 255, 255, 0.2)", borderRadius: "10px" }}>
+              <th style={{ padding: "15px", textAlign: "left", color: "#ff9800" }}>Ingredients</th>
+              <td style={{ padding: "15px" }}>
+                {recipe.ingredients.map((ingredient) => formatText(ingredient)).join(", ")}
+              </td>
+            </tr>
+            <tr style={{ borderBottom: "1px solid rgba(255, 255, 255, 0.2)" }}>
+              <th style={{ padding: "15px", textAlign: "left", color: "#ff9800" }}>Instructions</th>
+              <td style={{ padding: "15px" }}>{formatText(recipe.instructions)}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <Link to="/recipes">
+        <button 
+          style={{
+            marginTop: "30px",
+            padding: "12px 24px",
+            fontSize: "18px",
+            fontWeight: "bold",
+            background: "linear-gradient(90deg, #ff9800, #ff5722)",
+            color: "white",
+            border: "none",
+            borderRadius: "30px",
+            cursor: "pointer",
+            transition: "transform 0.3s ease, box-shadow 0.3s ease",
+            boxShadow: "0px 4px 10px rgba(255, 152, 0, 0.4)"
+          }}
+          onMouseOver={(e) => {
+            e.target.style.transform = "scale(1.05)";
+            e.target.style.boxShadow = "0px 6px 15px rgba(255, 152, 0, 0.6)";
+          }}
+          onMouseOut={(e) => {
+            e.target.style.transform = "scale(1)";
+            e.target.style.boxShadow = "0px 4px 10px rgba(255, 152, 0, 0.4)";
+          }}
+        >
+          Back to Recipes
+        </button>
+      </Link>
+
+      <style>
+        {`
+          @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+          }
+        `}
+      </style>
     </div>
   );
 }
