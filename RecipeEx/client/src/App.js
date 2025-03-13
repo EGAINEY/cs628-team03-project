@@ -4,6 +4,7 @@ import Register from "./Register";
 import Login from "./Login";
 import Recipes from "./Recipes";
 import RecipeDetails from "./RecipeDetails";
+import EditRecipe from "./EditRecipe";
 import Profile from "./Profile";
 import CreateRecipe from "./CreateRecipe";
 import Navbar from "./Navbar";
@@ -19,6 +20,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/recipes" element={<Recipes />} />
           <Route path="/recipes/:id" element={<RecipeDetails />} />
+          <Route path="/recipes/:id/edit" element={<EditRecipe />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/create-recipe" element={<CreateRecipe />} />
         </Routes>

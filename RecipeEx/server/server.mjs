@@ -10,7 +10,10 @@ const app = express();
 
 // Use CORS to prevent CORS related browser issues.
 app.use(cors());
-app.use(express.json());
+
+// Increase to 10MB to handle larger, high-resolution images.
+app.use(express.json({ limit: "10mb" }));
+app.use(express.urlencoded({ limit: "10mb", extended: true }));
 
 // Define the routes for users and recipes.
 app.use("/users", usersRouter);

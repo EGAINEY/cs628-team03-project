@@ -27,6 +27,24 @@ function Profile() {
     }
   };
 
+  const handleDelete = async (id) => {
+    if (!window.confirm("Are you sure you want to delete this recipe?")) return;
+
+    try {
+      const response = await fetch(`/recipes/${id}`, { method: "DELETE" });
+      const data = await response.json();
+
+      if (response.ok) {
+        alert("Recipe deleted successfully!");
+        setRecipes(recipes.filter((recipe) => recipe._id !== id));
+      } else {
+        alert(`Error: ${data.error}`);
+      }
+    } catch {
+      alert("Failed to delete recipe.");
+    }
+  };
+
   if (!user) return null;
 
   return (
@@ -75,14 +93,14 @@ function Profile() {
       </div>
 
       <h2 
-        style={{ 
-          marginTop: "30px", 
-          fontSize: "28px", 
-          fontWeight: "bold", 
-          color: "#ff9800",
-          animation: "fadeIn 2.5s ease-in-out"
+      style={{ 
+        marginTop: "30px", 
+        fontSize: "28px", 
+        fontWeight: "bold", 
+        color: "#ff9800",
+        animation: "fadeIn 2.5s ease-in-out" 
         }}
-      >
+        >
         My Recipes
       </h2>
 
@@ -129,31 +147,60 @@ function Profile() {
                   {recipe.title}
                 </Link>
 
-                <button 
-                  onClick={() => navigate(`/recipes/${recipe._id}`)}
-                  style={{
-                    padding: "8px 16px",
-                    fontSize: "16px",
-                    fontWeight: "bold",
-                    background: "linear-gradient(90deg, #ff9800, #ff5722)",
-                    color: "white",
-                    border: "none",
-                    borderRadius: "30px",
-                    cursor: "pointer",
-                    transition: "transform 0.3s ease, box-shadow 0.3s ease",
-                    boxShadow: "0px 4px 10px rgba(255, 152, 0, 0.4)"
-                  }}
-                  onMouseOver={(e) => {
-                    e.target.style.transform = "scale(1.05)";
-                    e.target.style.boxShadow = "0px 6px 15px rgba(255, 152, 0, 0.6)";
-                  }}
-                  onMouseOut={(e) => {
-                    e.target.style.transform = "scale(1)";
-                    e.target.style.boxShadow = "0px 4px 10px rgba(255, 152, 0, 0.4)";
-                  }}
-                >
-                  Edit
-                </button>
+                <div style={{ display: "flex", gap: "10px" }}>
+                  {/* Edit Button */}
+                  <button 
+                    onClick={() => navigate(`/recipes/${recipe._id}/edit`)}
+                    style={{
+                      padding: "8px 16px",
+                      fontSize: "16px",
+                      fontWeight: "bold",
+                      background: "linear-gradient(90deg, #ff9800, #ff5722)",
+                      color: "white",
+                      border: "none",
+                      borderRadius: "30px",
+                      cursor: "pointer",
+                      transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                      boxShadow: "0px 4px 10px rgba(255, 152, 0, 0.4)"
+                    }}
+                    onMouseOver={(e) => {
+                      e.target.style.transform = "scale(1.05)";
+                      e.target.style.boxShadow = "0px 6px 15px rgba(255, 152, 0, 0.6)";
+                    }}
+                    onMouseOut={(e) => {
+                      e.target.style.transform = "scale(1)";
+                      e.target.style.boxShadow = "0px 4px 10px rgba(255, 152, 0, 0.4)";
+                    }}
+                  >
+                    Edit
+                  </button>
+
+                  {/* Delete Button */}
+                  <button 
+                    onClick={() => handleDelete(recipe._id)}
+                    style={{
+                      padding: "8px 16px",
+                      fontSize: "16px",
+                      fontWeight: "bold",
+                      background: "#ff4444",
+                      color: "white",
+                      border: "none",
+                      borderRadius: "30px",
+                      cursor: "pointer",
+                      transition: "transform 0.3s ease, box-shadow 0.3s ease"
+                    }}
+                    onMouseOver={(e) => {
+                      e.target.style.transform = "scale(1.05)";
+                      e.target.style.boxShadow = "0px 6px 15px rgba(255, 0, 0, 0.6)";
+                    }}
+                    onMouseOut={(e) => {
+                      e.target.style.transform = "scale(1)";
+                      e.target.style.boxShadow = "0px 4px 10px rgba(255, 0, 0, 0.4)";
+                    }}
+                  >
+                    Delete
+                  </button>
+                </div>
               </li>
             ))}
           </ul>
