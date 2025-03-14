@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 
+// Defines the home page.
 function Home() {
   return (
     <div 
@@ -7,12 +8,13 @@ function Home() {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        justifyContent: "center",
+        justifyContent: "flex-start",
         height: "100vh",
         background: "linear-gradient(135deg, #1e1e2e, #3a3a5a)",
         color: "#ffffff",
         textAlign: "center",
-        padding: "20px"
+        padding: "20px",
+        paddingTop: "60px"
       }}
     >
       <h1 

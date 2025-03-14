@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
+// Profile function uses the state to manage users and their recipes.
 function Profile() {
   const [user, setUser] = useState(null);
   const [recipes, setRecipes] = useState([]);
   const navigate = useNavigate();
 
+  // Fetch the user details, if they don't exist, redirect them to the login page.
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
     if (!storedUser) {
@@ -13,10 +15,12 @@ function Profile() {
       return;
     }
 
+    // Set the user state.
     setUser(storedUser);
     fetchUserRecipes(storedUser._id);
   }, [navigate]);
 
+  // Fetch all of the recipes attributed to the current user.
   const fetchUserRecipes = async (userId) => {
     try {
       const response = await fetch(`/recipes?createdBy=${userId}`);
@@ -27,6 +31,7 @@ function Profile() {
     }
   };
 
+  // Handle recipe deletion.
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this recipe?")) return;
 
@@ -47,18 +52,20 @@ function Profile() {
 
   if (!user) return null;
 
+  // Defines the Profile page.
   return (
     <div 
       style={{
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        justifyContent: "center",
+        justifyContent: "flex-start",
         minHeight: "100vh",
         background: "linear-gradient(135deg, #1e1e2e, #3a3a5a)",
         color: "#ffffff",
         textAlign: "center",
-        padding: "40px"
+        padding: "40px",
+        paddingTop: "60px"
       }}
     >
       <h1 

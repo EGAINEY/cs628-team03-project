@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+// Create recipe function uses state to manage user input.
 function CreateRecipe() {
   const [title, setTitle] = useState("");
   const [ingredients, setIngredients] = useState("");
@@ -9,6 +10,7 @@ function CreateRecipe() {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
+  // Handles the image upload.
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -20,16 +22,19 @@ function CreateRecipe() {
     }
   };
 
+  // Handles the form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
 
+    // Ensures a user is logged in before they can create a recipe.
     const user = JSON.parse(localStorage.getItem("user"));
     if (!user) {
       setError("You must be logged in to create a recipe.");
       return;
     }
 
+    // Construct the new recipe.
     const newRecipe = {
       title,
       ingredients: ingredients.split(",").map((item) => item.trim()),
@@ -38,6 +43,7 @@ function CreateRecipe() {
       createdBy: user._id,
     };
 
+    // Send the data to the backend.
     try {
       const response = await fetch("/recipes", {
         method: "POST",
@@ -45,6 +51,7 @@ function CreateRecipe() {
         body: JSON.stringify(newRecipe),
       });
 
+      // Wait for response. If successful, alert the user with a pop up, then navigate to all recipes. Otherwise, return an error.
       const data = await response.json();
       if (!response.ok) {
         setError(data.error);
@@ -57,18 +64,20 @@ function CreateRecipe() {
     }
   };
 
+  // Renders the create recipe form.
   return (
     <div 
       style={{
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        justifyContent: "center",
+        justifyContent: "flex-start",
         minHeight: "100vh",
         background: "linear-gradient(135deg, #1e1e2e, #3a3a5a)",
         color: "#ffffff",
         textAlign: "center",
-        padding: "40px"
+        padding: "40px",
+        paddingTop: "60px"
       }}
     >
       <h1 

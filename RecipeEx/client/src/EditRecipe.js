@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
+// EditRecipe function uses params for the Recipe Id and state for the various user input fields.
 function EditRecipe() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -11,6 +12,7 @@ function EditRecipe() {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // Fetches the recipe details.
   useEffect(() => {
     fetch(`/recipes/${id}`)
       .then((res) => res.json())
@@ -28,6 +30,7 @@ function EditRecipe() {
       .catch(() => setError("Failed to fetch recipe."));
   }, [id]);
 
+  // Handles the image upload.
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -39,10 +42,12 @@ function EditRecipe() {
     }
   };
 
+  // Handles the form submission.
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
 
+    // Construct the updated recipe.
     const updatedRecipe = {
       title,
       ingredients: ingredients.split(",").map((item) => item.trim()),
@@ -50,6 +55,7 @@ function EditRecipe() {
       image,
     };
 
+    // PATCH the request to the backend.
     try {
       const response = await fetch(`/recipes/${id}`, {
         method: "PATCH",
@@ -57,6 +63,7 @@ function EditRecipe() {
         body: JSON.stringify(updatedRecipe),
       });
 
+      // Parse the response. If successful, navigate to the recipe. Otherwise, return the error.
       const data = await response.json();
       if (!response.ok) {
         setError(data.error);
@@ -71,18 +78,20 @@ function EditRecipe() {
 
   if (loading) return <h1>Loading...</h1>;
 
+  // Renders the edit recipe form.
   return (
     <div 
       style={{
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        justifyContent: "center",
+        justifyContent: "flex-start",
         minHeight: "100vh",
         background: "linear-gradient(135deg, #1e1e2e, #3a3a5a)",
         color: "#ffffff",
         textAlign: "center",
-        padding: "40px"
+        padding: "40px",
+        paddingTop: "60px"
       }}
     >
       <h1 style={{ fontSize: "42px", fontWeight: "bold", color: "#ff9800" }}>

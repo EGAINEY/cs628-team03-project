@@ -2,16 +2,19 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Register() {
+  // State variables for the user input values.
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
+  // Handle the submission.
   const handleRegister = async (e) => {
     e.preventDefault();
     setError(null);
 
+    // POST the request to the backend.
     try {
       const response = await fetch("/users/register", {
         method: "POST",
@@ -19,6 +22,7 @@ function Register() {
         body: JSON.stringify({ username, email, password }),
       });
 
+      // Parse the response and return error if not OK, otherwise, navigate to the profile.
       const data = await response.json();
 
       if (!response.ok) {
@@ -27,23 +31,27 @@ function Register() {
         localStorage.setItem("user", JSON.stringify(data));
         navigate("/profile");
       }
+
+    // Catch any errors.
     } catch (error) {
       setError("Something went wrong.");
     }
   };
 
+  // Code to render the Registration Form.
   return (
     <div 
       style={{
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        justifyContent: "center",
+        justifyContent: "flex-start",
         minHeight: "100vh",
         background: "linear-gradient(135deg, #1e1e2e, #3a3a5a)",
         color: "#ffffff",
         textAlign: "center",
-        padding: "40px"
+        padding: "40px",
+        paddingTop: "60px"
       }}
     >
       <h1 

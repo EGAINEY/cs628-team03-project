@@ -1,16 +1,19 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+// Login function uses state to manage the user input variables.
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
+  // Handle the login submission.
   const handleLogin = async (e) => {
     e.preventDefault();
     setError(null);
 
+    // POST the login form to the backend.
     try {
       const response = await fetch("/users/login", {
         method: "POST",
@@ -18,31 +21,35 @@ function Login() {
         body: JSON.stringify({ email, password }),
       });
 
+      // Wait for response and parse it.
       const data = await response.json();
 
+      // Display error if login not successful, otherwise, set the user and redirect to the all recipes page.
       if (!response.ok) {
         setError(data.error);
       } else {
         localStorage.setItem("user", JSON.stringify(data));
-        navigate("/profile");
+        navigate("/recipes");
       }
     } catch (error) {
       setError("Something went wrong.");
     }
   };
 
+  // Defines the login page.
   return (
     <div 
       style={{
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        justifyContent: "center",
+        justifyContent: "flex-start",
         minHeight: "100vh",
         background: "linear-gradient(135deg, #1e1e2e, #3a3a5a)",
         color: "#ffffff",
         textAlign: "center",
-        padding: "40px"
+        padding: "40px",
+        paddingTop: "60px"
       }}
     >
       <h1 

@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 
+// Recipe details function, uses the recipe id for params and state for recipe data.
 function RecipeDetails() {
   const { id } = useParams();
   const [recipe, setRecipe] = useState(null);
 
+  // Get the recipe by id.
   useEffect(() => {
     fetch(`/recipes/${id}`)
       .then((res) => res.json())
@@ -12,7 +14,7 @@ function RecipeDetails() {
       .catch((err) => console.error("Error fetching recipe:", err));
   }, [id]);
 
-  // Function to transform text: Capitalize the first letter of each word and lowercase the rest
+  // Formats text to capitalize the first letter of each word and lowercase the rest.
   const formatText = (text) => {
     return text
       .split(" ")
@@ -20,20 +22,23 @@ function RecipeDetails() {
       .join(" ");
   };
 
+  // Displays a loading message while the recipe is loading.
   if (!recipe) return <p style={{ color: "white", textAlign: "center", fontSize: "20px" }}>Loading...</p>;
 
+  // Defines the page for the recipe details.
   return (
     <div 
       style={{
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        justifyContent: "center",
+        justifyContent: "flex-start",
         minHeight: "100vh",
         background: "linear-gradient(135deg, #1e1e2e, #3a3a5a)",
         color: "#ffffff",
         textAlign: "center",
-        padding: "40px"
+        padding: "40px",
+        paddingTop: "60px"
       }}
     >
       <h1 

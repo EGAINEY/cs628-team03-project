@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
+// Recipes function uses state to hold the list of all recipes.
 function Recipes() {
   const [recipes, setRecipes] = useState([]);
 
+  // Get all of the recipes from the backend.
   useEffect(() => {
     fetch("/recipes")
       .then((res) => res.json())
@@ -11,18 +13,20 @@ function Recipes() {
       .catch((err) => console.error("Error fetching recipes:", err));
   }, []);
 
+  // Defines the all recipes page.
   return (
     <div 
       style={{
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        justifyContent: "center",
+        justifyContent: "flex-start",
         minHeight: "100vh",
         background: "linear-gradient(135deg, #1e1e2e, #3a3a5a)",
         color: "#ffffff",
         textAlign: "center",
-        padding: "40px"
+        padding: "20px",
+        paddingTop: "60px"
       }}
     >
       <h1 
@@ -33,7 +37,7 @@ function Recipes() {
           letterSpacing: "2px",
           color: "#ff9800",
           marginBottom: "20px",
-          animation: "fadeIn 1.5s ease-in-out"
+          animation: "fadeIn 1.5s ease-in-out",
         }}
       >
         All Recipes

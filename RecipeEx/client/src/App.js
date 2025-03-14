@@ -9,6 +9,7 @@ import Profile from "./Profile";
 import CreateRecipe from "./CreateRecipe";
 import Navbar from "./Navbar";
 
+// Defines the router specification.
 function App() {
   return (
     <Router basename="/">
