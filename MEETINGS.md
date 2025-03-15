@@ -23,10 +23,10 @@
 # TP03 & TP04
 **Meetings:** 
 
- - **Eric:** 
+ - **Eric:** Application Development, Drafted Report
    
- - **Varun:** 
+ - **Varun:** Application UI Development, Drafted Report
    
- - **Shivi:** 
+ - **Shivi:** Presentation Document, Wireframe
    
- - **Kritthika:** 
+ - **Kritthika:** Presentation Document Prepared
